@@ -1,0 +1,307 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		917B53E31E4CC2050098D2FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917B53E21E4CC2050098D2FF /* AppDelegate.swift */; };
+		917B53E51E4CC2050098D2FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917B53E41E4CC2050098D2FF /* ViewController.swift */; };
+		917B53E81E4CC2050098D2FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 917B53E61E4CC2050098D2FF /* Main.storyboard */; };
+		917B53EA1E4CC2050098D2FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 917B53E91E4CC2050098D2FF /* Assets.xcassets */; };
+		917B53ED1E4CC2050098D2FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 917B53EB1E4CC2050098D2FF /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		917B53DF1E4CC2050098D2FF /* SecretPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		917B53E21E4CC2050098D2FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		917B53E41E4CC2050098D2FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		917B53E71E4CC2050098D2FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		917B53E91E4CC2050098D2FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		917B53EC1E4CC2050098D2FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		917B53EE1E4CC2050098D2FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		917B53DC1E4CC2050098D2FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		917B53D61E4CC2050098D2FF = {
+			isa = PBXGroup;
+			children = (
+				917B53E11E4CC2050098D2FF /* SecretPhoto */,
+				917B53E01E4CC2050098D2FF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		917B53E01E4CC2050098D2FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				917B53DF1E4CC2050098D2FF /* SecretPhoto.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		917B53E11E4CC2050098D2FF /* SecretPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				917B53E21E4CC2050098D2FF /* AppDelegate.swift */,
+				917B53E41E4CC2050098D2FF /* ViewController.swift */,
+				917B53E61E4CC2050098D2FF /* Main.storyboard */,
+				917B53E91E4CC2050098D2FF /* Assets.xcassets */,
+				917B53EB1E4CC2050098D2FF /* LaunchScreen.storyboard */,
+				917B53EE1E4CC2050098D2FF /* Info.plist */,
+			);
+			path = SecretPhoto;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		917B53DE1E4CC2050098D2FF /* SecretPhoto */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 917B53F11E4CC2050098D2FF /* Build configuration list for PBXNativeTarget "SecretPhoto" */;
+			buildPhases = (
+				917B53DB1E4CC2050098D2FF /* Sources */,
+				917B53DC1E4CC2050098D2FF /* Frameworks */,
+				917B53DD1E4CC2050098D2FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SecretPhoto;
+			productName = SecretPhoto;
+			productReference = 917B53DF1E4CC2050098D2FF /* SecretPhoto.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		917B53D71E4CC2050098D2FF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "kawahara keisuke";
+				TargetAttributes = {
+					917B53DE1E4CC2050098D2FF = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = FZE25WBDFZ;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 917B53DA1E4CC2050098D2FF /* Build configuration list for PBXProject "SecretPhoto" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 917B53D61E4CC2050098D2FF;
+			productRefGroup = 917B53E01E4CC2050098D2FF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				917B53DE1E4CC2050098D2FF /* SecretPhoto */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		917B53DD1E4CC2050098D2FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				917B53ED1E4CC2050098D2FF /* LaunchScreen.storyboard in Resources */,
+				917B53EA1E4CC2050098D2FF /* Assets.xcassets in Resources */,
+				917B53E81E4CC2050098D2FF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		917B53DB1E4CC2050098D2FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				917B53E51E4CC2050098D2FF /* ViewController.swift in Sources */,
+				917B53E31E4CC2050098D2FF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		917B53E61E4CC2050098D2FF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				917B53E71E4CC2050098D2FF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		917B53EB1E4CC2050098D2FF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				917B53EC1E4CC2050098D2FF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		917B53EF1E4CC2050098D2FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		917B53F01E4CC2050098D2FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		917B53F21E4CC2050098D2FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = FZE25WBDFZ;
+				INFOPLIST_FILE = SecretPhoto/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.keisuke.SecretPhoto;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		917B53F31E4CC2050098D2FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = FZE25WBDFZ;
+				INFOPLIST_FILE = SecretPhoto/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.keisuke.SecretPhoto;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		917B53DA1E4CC2050098D2FF /* Build configuration list for PBXProject "SecretPhoto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				917B53EF1E4CC2050098D2FF /* Debug */,
+				917B53F01E4CC2050098D2FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		917B53F11E4CC2050098D2FF /* Build configuration list for PBXNativeTarget "SecretPhoto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				917B53F21E4CC2050098D2FF /* Debug */,
+				917B53F31E4CC2050098D2FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 917B53D71E4CC2050098D2FF /* Project object */;
+}
