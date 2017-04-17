@@ -30,6 +30,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = initialViewController
             //表示
             self.window?.makeKeyAndVisible()
+            
+            let fileManager = FileManager.default
+            
+            let dirFakeAlbum = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: "/fakeAlbum/") as String
+            let dirFakeThumbnail = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: "/fakeThumbnail/") as String
+            let dirTrueAlbum = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: "/tureAlbum/") as String
+            let dirTrueThumbnail = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: "/tureThumbnail/") as String
+
+            do {
+                try fileManager.createDirectory(atPath: dirFakeAlbum, withIntermediateDirectories: true, attributes: nil)
+                try fileManager.createDirectory(atPath: dirFakeThumbnail, withIntermediateDirectories: true, attributes: nil)
+                try fileManager.createDirectory(atPath: dirTrueAlbum, withIntermediateDirectories: true, attributes: nil)
+                try fileManager.createDirectory(atPath: dirTrueThumbnail, withIntermediateDirectories: true, attributes: nil)
+                
+            } catch {
+                print("error during initialization")
+            }
+
+            
         }
         return true
     }

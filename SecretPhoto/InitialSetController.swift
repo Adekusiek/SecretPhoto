@@ -89,8 +89,6 @@ class InitialSetController: UIViewController, UITextFieldDelegate {
             }
         }
         
-        
-        print(input)
     }
     
     @IBAction func tapRegisterButton(_ sender: Any) {
@@ -105,10 +103,11 @@ class InitialSetController: UIViewController, UITextFieldDelegate {
             if previousPassInput == passView.text! {
                 let passNumber = Int(previousPassInput)
                 let userDefaults = UserDefaults.standard
+
                 userDefaults.set(true, forKey: "initFlag")
-                userDefaults.set(passNumber, forKey: "password")
+                userDefaults.set(passNumber, forKey: "truePassword")
                 userDefaults.synchronize()
-                
+                                
                 libraryRequestAuthorization()
                 cameraSelected()
                 microSelected()
@@ -125,6 +124,7 @@ class InitialSetController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
     func libraryRequestAuthorization() {
         PHPhotoLibrary.requestAuthorization({ [weak self] status in
             guard let wself = self else {

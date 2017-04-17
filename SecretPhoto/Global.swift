@@ -6,6 +6,8 @@
 //  Copyright © 2017年 kawahara keisuke. All rights reserved.
 //
 
-import Foundation
+struct MyVariables {
+    static var globalCurrentIndex: Int?
+    static var fakeFlag = false
+}
 
-var globalCurrentIndex: Int?

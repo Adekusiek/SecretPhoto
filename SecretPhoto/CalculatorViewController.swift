@@ -8,9 +8,12 @@
 
 import UIKit
 import AudioToolbox
+import GoogleMobileAds
 
-class CalculatorViewController: UIViewController {
+
+class CalculatorViewController: UIViewController, GADInterstitialDelegate {
     
+    var interstitial: GADInterstitial!
     
     var holdValue: Double = 0.0
     var currentValue: Double = 0.0
@@ -49,6 +52,7 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var equalButton: UIButton!
     
     var passwordHolder: String = ""
+    var fakePasswordHolder: String = ""
     
     let systemSoundID:SystemSoundID = 1306
     
@@ -85,7 +89,10 @@ class CalculatorViewController: UIViewController {
         numberField.frame = CGRect(x:0, y:0, width: displayWidth, height: displayHeight - edgeSize * 5)
         
         let userDefaults = UserDefaults.standard
-        passwordHolder = userDefaults.string(forKey: "password")!
+        passwordHolder = userDefaults.string(forKey: "truePassword")!
+        if let fakepass = userDefaults.string(forKey: "fakePassword") {
+            fakePasswordHolder = fakepass
+        }
         
         
         // Adjust Fonto position
@@ -114,6 +121,7 @@ class CalculatorViewController: UIViewController {
         multiplyButton.setBackgroundImage(Color.imageWithColor(color: UIColor.orange), for: .highlighted)
         divideButton.setBackgroundImage(Color.imageWithColor(color: UIColor.orange), for: .highlighted)
 
+        //createAndLoadInterstitial()
     }
     
     override func didReceiveMemoryWarning() {
@@ -428,6 +436,7 @@ class CalculatorViewController: UIViewController {
             let number = NSString(string: nextValue).doubleValue
             numberField.text = self.integerCheck(value: number)
         }
+        //numberField.text = "パスワードを入力します"
     }
     
     
@@ -448,7 +457,23 @@ class CalculatorViewController: UIViewController {
     func checkPassword() {
         let input = numberField.text!
         if passwordHolder == input {
+            MyVariables.fakeFlag = false
+            /*
+            if interstitial.isReady {
+                interstitial.present(fromRootViewController: self)
+            }
+ */
             performSegue(withIdentifier: "toAlbumViewController", sender: nil)
+        }
+        if fakePasswordHolder == input {
+            MyVariables.fakeFlag = true
+            /*
+            if interstitial.isReady {
+                interstitial.present(fromRootViewController: self)
+            }
+             */
+            performSegue(withIdentifier: "toAlbumViewController", sender: nil)
+            
         }
         print(input)
     }
@@ -470,5 +495,27 @@ class CalculatorViewController: UIViewController {
     override open var shouldAutorotate: Bool {
         return true
     }
+    
+    /*
+    fileprivate func createAndLoadInterstitial() {
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitial.delegate = self
+        let request = GADRequest()
+        // Request test ads on devices you specify. Your test device ID is printed to the console when
+        // an ad request is made.
+        request.testDevices = [kGADSimulatorID]
+        interstitial.load(request)
+        
+    }
+
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        if MyVariables.fakeFlag == false {
+            performSegue(withIdentifier: "toAlbumViewController", sender: nil)
+        }else if MyVariables.fakeFlag == true {
+            performSegue(withIdentifier: "toAlbumViewController", sender: nil)
+        }
+        
+    }
+ */
 
 }

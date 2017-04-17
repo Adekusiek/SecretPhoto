@@ -12,17 +12,23 @@ import QBImagePickerController
 import MobileCoreServices
 import AVFoundation
 
-class PhotoViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QBImagePickerControllerDelegate {
+class PhotoViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QBImagePickerControllerDelegate, AdShowable {
 
+    @IBOutlet weak var FixedSpace1: UIBarButtonItem!
+    @IBOutlet weak var FixedSpace2: UIBarButtonItem!
+    
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var toolBar: UIToolbar!
+    
+    var mytext = ""
     
     var albumName: String?
     var selectedIndex: Int?
     
     // prepare variables for document folder
     let fileManager = FileManager.default
-    var dir: String = ""
-    var dirCollection: String = ""
+    var dirAlbum: String = ""
+    var dirThumbnail: String = ""
     var contentNumber: Int = 0
     
     let thumbnailSize: CGFloat = 150
@@ -37,12 +43,23 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
         // Set title on navigation bar
         self.title = albumName
         // save current album path in document directry
-        let pathToCollection = "/collection/" + self.albumName!
-        dir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: self.albumName!) as String
-        dirCollection = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: pathToCollection) as String
+        var pathToAlbum: String = ""
+        var pathToThumbnail: String = ""
+        if MyVariables.fakeFlag == false {
+            pathToAlbum = "/trueAlbum/" + self.albumName!
+            pathToThumbnail = "/trueThumbnail/" + self.albumName!
+        } else {
+            pathToAlbum = "/fakeAlbum/" + self.albumName!
+            pathToThumbnail = "/fakeThumbnail/" + self.albumName!
+        }
+
+        dirAlbum = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: pathToAlbum) as String
+        dirThumbnail = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: pathToThumbnail) as String
         
         self.layoutCollectionView()
         cellSize = self.setCellSize()
+        
+        //self.view.addSubview(getAdViewOverTabBar(tabBarHeight: self.toolBar.frame.height))
         
     }
 
@@ -53,39 +70,33 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        collectionView.setNeedsDisplay()
         self.collectionView.reloadData()
         self.collectionView.layoutIfNeeded()
         
         
     }
-    
+    // 向きが変わったらframeをセットしなおして再描画
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.layoutCollectionView()
-        cellSize = self.setCellSize()
-        collectionView.setNeedsDisplay()
-        collectionView.reloadData()
-        
-    }
-    /*
-    // 端末の向き変更を検知
-    override func viewDidAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onOrientationChange(notification:)),name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-    }
-    
-    // 向きが変わったらframeをセットしなおして再描画
-    func onOrientationChange(notification: NSNotification){
-        self.layoutCollectionView()
+        self.layoutTabBar()
         cellSize = self.setCellSize()
         collectionView.setNeedsDisplay()
         collectionView.reloadData()
     }
-    */
+
     
     func layoutCollectionView() {
         collectionView.frame.size = CGSize(width: view.frame.width, height: view.frame.height)
         collectionView.center.x = view.center.x
         collectionView.center.y = view.center.y
+    }
+    
+    func layoutTabBar() {
+        let displayWidth = (view.frame.width - 44 * 2)/3
+        self.FixedSpace1.width = displayWidth
+        self.FixedSpace2.width = displayWidth
     }
     
     func setCellSize() -> CGFloat {
@@ -107,8 +118,8 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
         // define myCell from Identifier in storyboard
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoViewCell
         // UICollectionView heritates UIView, whose method is contentView
-        let localPath = try? fileManager.contentsOfDirectory(atPath: dirCollection)[indexPath.row]
-        let imagePath = dirCollection.stringByAppendingPathComponent1(path: localPath!)
+        let localPath = try? fileManager.contentsOfDirectory(atPath: dirThumbnail)[indexPath.row]
+        let imagePath = dirThumbnail.stringByAppendingPathComponent1(path: localPath!)
         // Fethch image from Document/collection/<AlbumName>
         let image = UIImage(contentsOfFile: imagePath)!
         myCell.photoImageView.image = image
@@ -137,7 +148,7 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Number of items in the section
         // number of contents in this album
-        try? contentNumber = fileManager.contentsOfDirectory(atPath: dir).count
+        try? contentNumber = fileManager.contentsOfDirectory(atPath: dirThumbnail).count
 
         return contentNumber
     }
@@ -207,63 +218,90 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
     func qb_imagePickerController(_ imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [Any]!) {
         // For controlling photo path enregistered in the same time
         var count: Int = 0
+   
         for asset in assets {
-            
+            // semaphore must declared each time!!!
+            let semaphore = DispatchSemaphore(value: 0)
             let myasset = asset as! PHAsset
             if myasset.mediaType == PHAssetMediaType.image {
-                    let thumbnai: UIImage = getAssetThumbnail(asset: myasset)
+
+                
+                    let thumbnai: UIImage = self.getAssetThumbnail(asset: myasset)
                     //File name: CurrentTime.png
+             
                     if let photoData = UIImagePNGRepresentation(thumbnai){
                         let photoName = "\(NSDate().description + String(count)).png"
-                        let path = dir.stringByAppendingPathComponent1(path: photoName)
+                        let path = self.dirAlbum.stringByAppendingPathComponent1(path: photoName)
                 
                         do {
                             try photoData.write(to: URL(fileURLWithPath: path), options: .atomic)
+                            semaphore.signal()
                         } catch {
                             print("error while writing to path:\(path)")
                         }
                     }
-
+                    semaphore.wait()
                 
                     let cropImage: UIImage = thumbnai.TrimingUIImage()
                     let resizedImage = cropImage.ResizeUIImage(width: self.thumbnailSize, height: self.thumbnailSize)
-                    if let photoDataCollection = UIImagePNGRepresentation(resizedImage!){
-                        let photoNameCollection = "\(NSDate().description + String(count)).png"
-                        let pathCollection = dirCollection.stringByAppendingPathComponent1(path: photoNameCollection)
-                    
+                    if let photoDataThumbnail = UIImagePNGRepresentation(resizedImage!){
+                        let photoNameThumbnail = "\(NSDate().description + String(count)).png"
+                        let pathThumbnail = self.dirThumbnail.stringByAppendingPathComponent1(path: photoNameThumbnail)
+                        
                         do {
-                            try photoDataCollection.write(to: URL(fileURLWithPath: pathCollection), options: .atomic)
+                            try photoDataThumbnail.write(to: URL(fileURLWithPath: pathThumbnail), options: .atomic)
+                            semaphore.signal()
                         } catch {
-                            print("error while writing to path:\(pathCollection)")
+                            print("error while writing to path:\(pathThumbnail)")
                         }
+                        
                     }
+                    semaphore.wait()
 
             }  else if myasset.mediaType == PHAssetMediaType.video {
-                
+
                 PHImageManager.default().requestAVAsset(forVideo: myasset, options: nil, resultHandler:
                     {(avAsset: AVAsset?, audioMix: AVAudioMix?, info: [AnyHashable : Any]?) -> Void in
                         
                         let tempasset = avAsset as! AVURLAsset
                         
                         let videoData = NSData(contentsOf: tempasset.url)
-                        let movieName = "\(NSDate().description).mov"
-                        let path = self.dir.stringByAppendingPathComponent1(path: movieName)
+                        let movieName = "\(NSDate().description + String(count)).mov"
+                        let path = self.dirAlbum.stringByAppendingPathComponent1(path: movieName)
                         
-                        // Prepare the thumbnail photo
-                        self.getMovieThumbnailByPHAsset(asset: myasset, path: path)
+                        videoData?.write(toFile: path, atomically: true)
                         
-                        // Write into local document
-                        videoData?.write(toFile: path, atomically: false)
-
+                        
+                        if let photoDataThumbnail = UIImagePNGRepresentation(self.getMovieThumbnailByPath(path: path)){
+                            let photoNameThumbnail = "\(NSDate().description + String(count)).png"
+                            let pathThumbnail = self.dirThumbnail.stringByAppendingPathComponent1(path: photoNameThumbnail)
+                            
+                            do {
+                                try photoDataThumbnail.write(to: URL(fileURLWithPath: pathThumbnail), options: .atomic)
+                                semaphore.signal()
+                            } catch {
+                                print("error while writing to path:\(pathThumbnail)")
+                            }
+                            
+                        }
+                        semaphore.signal()
+                        
                 })
-            
-            }
 
+                semaphore.wait()
+                print("escaped")
+                
+            }
             count += 1
-        }
+            print("photocount: \(count)")
+
+            }
         
-        collectionView.reloadData()
-        self.dismiss(animated: true, completion: nil)
+            self.collectionView.setNeedsDisplay()
+            self.collectionView.reloadData()
+            self.collectionView.layoutIfNeeded()
+            self.dismiss(animated: true, completion: nil)
+        
     }
     
     func qb_imagePickerControllerDidCancel(_ imagePickerController: QBImagePickerController!) {
@@ -277,17 +315,22 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
             let mediaType: String = info[UIImagePickerControllerMediaType] as! String
             if mediaType == "public.image" {
                 if let tookImage: UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage{
-                    if let photoData = UIImagePNGRepresentation(tookImage){
+                    // This line is to treat the rotation to portrait
+                    let rotatedImage = tookImage.ResizeUIImage(width: tookImage.size.width, height: tookImage.size.height)
+                    if let photoData = UIImagePNGRepresentation(rotatedImage!){
                         
                         //保存ディレクトリ: Document/<AlbumName> is set at vidwDidRoad()
-                        if !fileManager.fileExists(atPath: dir) {} else{
+                        if !fileManager.fileExists(atPath: dirAlbum) {} else{
                             print("unable to find designated folder")
                         }
+                        
+                        
+                        
                         
                         //File name: CurrentTime.png
                         let photoName = "\(NSDate().description).png"
                         print(photoName)
-                        let path = dir.stringByAppendingPathComponent1(path: photoName)
+                        let path = dirAlbum.stringByAppendingPathComponent1(path: photoName)
                         
                         
                         // Save
@@ -299,7 +342,7 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
                         
                     }
                     
-                    // Prepare small image data for collection view
+                    // Prepare small image data for Thumbnail view
                     // To prepare a thumbnail with a good frame, first triming and then smallen
                     let cropImage: UIImage = tookImage.TrimingUIImage()
                     let resizedImage = cropImage.ResizeUIImage(width: 150, height: 150)
@@ -307,14 +350,14 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
                     if let photoData = UIImagePNGRepresentation(resizedImage!){
                         
                         //保存ディレクトリ: Document/<AlbumName> is set at vidwDidRoad()
-                        if !fileManager.fileExists(atPath: dirCollection) {} else{
+                        if !fileManager.fileExists(atPath: dirThumbnail) {} else{
                             print("unable to find designated folder")
                         }
                         
                         //File name: CurrentTime.png
                         let photoName = "\(NSDate().description).png"
                         print(photoName)
-                        let path = dirCollection.stringByAppendingPathComponent1(path: photoName)
+                        let path = dirThumbnail.stringByAppendingPathComponent1(path: photoName)
                         
                         
                         // Save
@@ -330,34 +373,38 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
             
 
             }else if mediaType == "public.movie"{
-                if !fileManager.fileExists(atPath: dir) {} else{
+                if !fileManager.fileExists(atPath: dirAlbum) {} else{
                     print("unable to find designated folder")
                 }
-                /*
-                let movieName = "\(NSDate().description).mov"
-                let path = dir.stringByAppendingPathComponent1(path: movieName)
-                // アルバム名全角文字対応
-                let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
-                let lastPath = Foundation.URL(string: "file://\(encodedPath!)")
-                
-                if let tookMovieURL: NSURL = info[UIImagePickerControllerMediaURL] as! NSURL {
-                    do {
-                        try fileManager.moveItem(at: tookMovieURL as URL, to: lastPath!)
-                        print("movie saved")
-                    } catch {
-                        print(error.localizedDescription)
-                    }
-                }
-                */
                 
                 let videoURL = info[UIImagePickerControllerMediaURL] as! URL
                 let videoData = NSData(contentsOf: videoURL)
                 let movieName = "\(NSDate().description).mov"
-                let path = dir.stringByAppendingPathComponent1(path: movieName)
+                let path = dirAlbum.stringByAppendingPathComponent1(path: movieName)
                 
                 videoData?.write(toFile: path, atomically: false)
                 
-                self.getMovieThumbnailByPath(path: path)
+                if let photoData = UIImagePNGRepresentation(self.getMovieThumbnailByPath(path: path)){
+                    
+                    //保存ディレクトリ: Document/<AlbumName> is set at vidwDidRoad()
+                    if !fileManager.fileExists(atPath: dirThumbnail) {} else{
+                        print("unable to find designated folder")
+                    }
+                    
+                    //File name: CurrentTime.png
+                    let photoName = "\(NSDate().description).png"
+                    print(photoName)
+                    let path = dirThumbnail.stringByAppendingPathComponent1(path: photoName)
+                    
+                    
+                    // Save
+                    do{
+                        try photoData.write(to: URL(fileURLWithPath: path), options: .atomic)
+                    } catch {
+                        print("error while writing to path:\(path)")
+                    }
+                    
+                }
             }
 
         }
@@ -380,18 +427,21 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     func getAssetThumbnail(asset: PHAsset) -> UIImage {
+        let semaphore = DispatchSemaphore(value: 0)
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
         var thumbnail = UIImage()
         option.isSynchronous = true
         manager.requestImage(for: asset, targetSize: CGSize(width: self.savePhotoWidth, height: self.savePhotoHeight), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
             thumbnail = result!
+            semaphore.signal()
         })
+        semaphore.wait()
         return thumbnail
     }
     
-    func getMovieThumbnailByPHAsset(asset: PHAsset, path: String){
-        
+    func getMovieThumbnailByPHAsset(asset: PHAsset, path: String) -> UIImage{
+
         let filePath: URL = URL(fileURLWithPath: path)
         let avAsset = AVURLAsset(url: filePath, options: nil)
         let manager = PHImageManager.default()
@@ -400,12 +450,17 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
         option.isSynchronous = true
         manager.requestImage(for: asset, targetSize: CGSize(width: self.savePhotoWidth, height: self.savePhotoHeight), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
             thumbnail = result!
+
         })
-        self.AddTimeMovieThumbnail(thumbnail: thumbnail, asset: avAsset)
+        
+        let myImage: UIImage = self.AddTimeMovieThumbnail(thumbnail: thumbnail, asset: avAsset)
+        
+        return myImage
+
     }
 
-    func getMovieThumbnailByPath(path: String){
-        
+    func getMovieThumbnailByPath(path: String) -> UIImage{
+        print("start getmovie Thumbnailbypath")
          let filePath: URL = URL(fileURLWithPath: path)
          let avAsset = AVURLAsset(url: filePath, options: nil)
          let imgGenerator = AVAssetImageGenerator(asset: avAsset)
@@ -413,13 +468,18 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
          let cgImage = try? imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
          let thumbnail = UIImage(cgImage: cgImage!)
         
-         self.AddTimeMovieThumbnail(thumbnail: thumbnail, asset: avAsset)
+        let myImage: UIImage = self.AddTimeMovieThumbnail(thumbnail: thumbnail, asset: avAsset)
+        
+        return myImage
+        
     }
 
-    func AddTimeMovieThumbnail(thumbnail: UIImage, asset: AVAsset){
+    func AddTimeMovieThumbnail(thumbnail: UIImage, asset: AVAsset) -> UIImage{
+         print("start of addtimemoviethmbnail")
         // Triming for a prepared frame and then Smallen the image
         let cropImage: UIImage = thumbnail.TrimingUIImage()
         let resizedImage = cropImage.ResizeUIImage(width: self.thumbnailSize, height: self.thumbnailSize)
+        print("resize image of addtimemoviethmbnail")
         let imageWidth = resizedImage!.size.width
         let imageHeight = resizedImage!.size.height
         
@@ -453,7 +513,7 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
             NSForegroundColorAttributeName: UIColor.white,
             NSParagraphStyleAttributeName: textStyle
         ]
-        
+        print("rendering text")
         // テキストをdrawInRectメソッドでレンダリング
         text.draw(in: textRect, withAttributes: textFontAttributes)
         
@@ -463,29 +523,8 @@ class PhotoViewController: UIViewController, UICollectionViewDataSource, UIColle
         // Context 終了
         UIGraphicsEndImageContext()
         
+        return newImage!
         
-        if let photoData = UIImagePNGRepresentation(newImage!){
-            
-            //保存ディレクトリ: Document/<AlbumName> is set at vidwDidRoad()
-            if !self.fileManager.fileExists(atPath: self.dirCollection) {} else{
-                print("unable to find designated folder")
-            }
-            
-            //File name: CurrentTime.png
-            let photoName = "\(NSDate().description).png"
-            print(photoName)
-            let path = self.dirCollection.stringByAppendingPathComponent1(path: photoName)
-            
-            
-            // Save
-            do{
-                try photoData.write(to: URL(fileURLWithPath: path), options: .atomic)
-            } catch {
-                print("error while writing to path:\(path)")
-            }
-            
-        }
-
     }
     
     func libraryRequestAuthorization() {

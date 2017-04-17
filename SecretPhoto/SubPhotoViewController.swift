@@ -9,18 +9,21 @@
 import UIKit
 import Photos
 
-class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
+class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource, AdShowable {
     
     
     @IBOutlet weak var photoView: UIView!
+    @IBOutlet weak var FixedSpace1: UIBarButtonItem!
+    @IBOutlet weak var toolBar: UIToolbar!
+    
     var selectedPhoto: UIImage?
     var selectedIndex: Int?
     var currentIndex: Int?
     var albumName: String?
     
     let fileManager = FileManager.default
-    var dir: String = ""
-    var dirCollection: String = ""
+    var dirAlbum: String = ""
+    var dirThumbnail: String = ""
     var contentNumber: Int = 0
     var dataInstance: DataViewController?
 
@@ -37,6 +40,7 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
         super.viewDidLoad()
         
         setViewFrame()
+        layoutTabBar()
         
         dataArray = [DataViewController]()
 
@@ -46,11 +50,20 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
         
         print(currentIndex!)
         
-        let pathToCollection = "/collection/" + self.albumName!
-        dir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: self.albumName!) as String
-        dirCollection = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: pathToCollection) as String
+        var pathToAlbum: String = ""
+        var pathToThumbnail: String = ""
+        if MyVariables.fakeFlag == false {
+            pathToAlbum     = "/trueAlbum/" + self.albumName!
+            pathToThumbnail = "/trueThumbnail/" + self.albumName!
+        } else {
+            pathToAlbum     = "/fakeAlbum/" + self.albumName!
+            pathToThumbnail = "/fakeThumbnail/" + self.albumName!
+        }
         
-        try? contentNumber = fileManager.contentsOfDirectory(atPath: dir).count
+        dirAlbum = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: pathToAlbum) as String
+        dirThumbnail = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: pathToThumbnail) as String
+        
+        try? contentNumber = fileManager.contentsOfDirectory(atPath: dirAlbum).count
         
         // Set Navigation bar title
         self.title = " \(currentIndex! + 1) of \(contentNumber)"
@@ -62,7 +75,7 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
         // if all photo are deleted from the album, return an empty dataviewcontroller
         if contentNumber > 0 {
             for index in 0...contentNumber - 1 {
-                let pathString = try? fileManager.contentsOfDirectory(atPath: dir)[index]
+                let pathString = try? fileManager.contentsOfDirectory(atPath: dirAlbum)[index]
                 if (pathString!.range(of: ".png") != nil) {
                     
                     dataInstance = getPageInstanceWithImage(index: index)
@@ -107,34 +120,27 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
         
         view.addGestureRecognizer(singleTap)
         
-        globalCurrentIndex = currentIndex
+        MyVariables.globalCurrentIndex = currentIndex
+        
+        //self.view.addSubview(getAdViewOverTabBar(tabBarHeight: self.toolBar.frame.height))
 
     }
    
     override func viewWillAppear(_ animated: Bool) {
-        
-        print("currentIndex: \(currentIndex)")
-        print("globalIndex: \(globalCurrentIndex)")
-        
-        if globalCurrentIndex != currentIndex {
-            pageViewController!.setViewControllers([dataArray[globalCurrentIndex!]], direction: .forward, animated: false, completion: nil)
+                
+        if MyVariables.globalCurrentIndex != currentIndex {
+            pageViewController!.setViewControllers([dataArray[MyVariables.globalCurrentIndex!]], direction: .forward, animated: false, completion: nil)
         }
-        
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        
-        // 端末の向きがかわったらNotificationを呼ばす設定.
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onOrientationChange(notification:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
     }
 
     
-    func onOrientationChange(notification: Notification){
-        
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         setViewFrame()
-        
+        layoutTabBar()
     }
- 
+    
     // 逆方向にページ送りした時に呼ばれるメソッド
     // No Going Back for this Calendar
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -150,7 +156,7 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
 
         currentIndex = index
 
-        globalCurrentIndex = currentIndex
+        MyVariables.globalCurrentIndex = currentIndex
 
         // Set Navigation bar title
         // I dont understand why index + 1 but it works as should be
@@ -173,7 +179,7 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
 
         currentIndex = index
 
-        globalCurrentIndex = currentIndex
+        MyVariables.globalCurrentIndex = currentIndex
         
         // Set Navigation bar title
         self.title = " \(index + 1) of \(contentNumber)"
@@ -199,22 +205,20 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
     }
     
     func deletePhoto(index: Int){
-        let localPath = try? fileManager.contentsOfDirectory(atPath: dir)[index]
-        let localPathCollection = try? fileManager.contentsOfDirectory(atPath: dirCollection)[index]
+        let localPath = try? fileManager.contentsOfDirectory(atPath: dirAlbum)[index]
+        let localPathThumbnail = try? fileManager.contentsOfDirectory(atPath: dirThumbnail)[index]
         
         
-        let photoPath = dir.stringByAppendingPathComponent1(path: localPath!)
-        let photoPathCollection = dirCollection.stringByAppendingPathComponent1(path: localPathCollection!)
+        let photoPath = dirAlbum.stringByAppendingPathComponent1(path: localPath!)
+        let photoPathThumbnail = dirThumbnail.stringByAppendingPathComponent1(path: localPathThumbnail!)
         
         do{
             try fileManager.removeItem(atPath: photoPath)
-            try fileManager.removeItem(atPath: photoPathCollection)
+            try fileManager.removeItem(atPath: photoPathThumbnail)
         } catch {
             print("error occured while deleting photo \(photoPath)")
         }
-        
-        try? print(fileManager.contentsOfDirectory(atPath: dir).count)
-        try? print(fileManager.contentsOfDirectory(atPath: dirCollection).count)
+
         
         return
     }
@@ -225,8 +229,8 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
         // Create a instance of photo page view
         let temporalyInstance: DataViewController = storyboard?.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
         // Get a path to the photo concerned
-        try? localPath = fileManager.contentsOfDirectory(atPath: dir)[index]
-        let initPhotoPath = dir.stringByAppendingPathComponent1(path: localPath)
+        try? localPath = fileManager.contentsOfDirectory(atPath: dirAlbum)[index]
+        let initPhotoPath = dirAlbum.stringByAppendingPathComponent1(path: localPath)
         // Get a image
         let image: UIImage = UIImage(contentsOfFile: initPhotoPath)!
         temporalyInstance.image = image
@@ -238,8 +242,8 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
         // Create a instance of photo page view
         let temporalyInstance: DataViewController = storyboard?.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
         // Get a path to the photo concerned
-        let localPath = try? fileManager.contentsOfDirectory(atPath: dir)[index]
-        let initVideoPath = dir.stringByAppendingPathComponent1(path: localPath!)
+        let localPath = try? fileManager.contentsOfDirectory(atPath: dirAlbum)[index]
+        let initVideoPath = dirAlbum.stringByAppendingPathComponent1(path: localPath!)
         // Get a video
         //let asset: AVAsset = AVURLAsset(url: URL(fileURLWithPath: initVideoPath))
         temporalyInstance.videoPath = initVideoPath
@@ -253,7 +257,6 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
         
         let nextView = self.storyboard!.instantiateViewController(withIdentifier: "SubSubPhotoViewController") as! SubSubPhotoViewController
         nextView.currentIndex = self.currentIndex
-        print("currentIndex: \(currentIndex)")
         nextView.albumName = self.albumName
         self.present(nextView, animated: false, completion: nil)
         
@@ -272,6 +275,10 @@ class SubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
         
     }
     
+    func layoutTabBar() {
+        let displayWidth = (view.frame.width - 50 )/2
+        self.FixedSpace1.width = displayWidth
+    }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all

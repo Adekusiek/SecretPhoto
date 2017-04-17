@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class SubSubPhotoViewController: UIViewController, UIPageViewControllerDataSource {
+class SubSubPhotoViewController: UIViewController, UIPageViewControllerDataSource, AdShowable {
     
     
     @IBOutlet weak var photoView: UIView!
@@ -19,7 +19,7 @@ class SubSubPhotoViewController: UIViewController, UIPageViewControllerDataSourc
     var albumName: String?
     
     let fileManager = FileManager.default
-    var dir: String = ""
+    var dirAlbum: String = ""
     var contentNumber: Int = 0
     var dataInstance: SubDataViewController?
     
@@ -39,14 +39,22 @@ class SubSubPhotoViewController: UIViewController, UIPageViewControllerDataSourc
         
         dataArray = [SubDataViewController]()
         
-        dir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: self.albumName!) as String
+        var pathToAlbum: String = ""
+        if MyVariables.fakeFlag == false {
+            pathToAlbum = "/trueAlbum/" + self.albumName!
+        } else {
+            pathToAlbum = "/fakeAlbum/" + self.albumName!
+        }
         
-        try? contentNumber = fileManager.contentsOfDirectory(atPath: dir).count
+        dirAlbum = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent1(path: pathToAlbum) as String
+        
+        
+        try? contentNumber = fileManager.contentsOfDirectory(atPath: dirAlbum).count
         // if any photo is in album folder, set into dataArray
         // if all photo are deleted from the album, return an empty dataviewcontroller
         if contentNumber > 0 {
             for index in 0...contentNumber - 1 {
-                let pathString = try? fileManager.contentsOfDirectory(atPath: dir)[index]
+                let pathString = try? fileManager.contentsOfDirectory(atPath: dirAlbum)[index]
                 if (pathString!.range(of: ".png") != nil) {
                     
                     dataInstance = getPageInstanceWithImage(index: index)
@@ -91,6 +99,8 @@ class SubSubPhotoViewController: UIViewController, UIPageViewControllerDataSourc
         singleTap.require(toFail: doubleTap)  //Swift3
         
         print("currentIndex: \(currentIndex)")
+        
+        //self.view.addSubview(getAdView())
         
     }
     
@@ -150,8 +160,8 @@ class SubSubPhotoViewController: UIViewController, UIPageViewControllerDataSourc
         // Create a instance of photo page view
         let temporalyInstance: SubDataViewController = storyboard?.instantiateViewController(withIdentifier: "SubDataViewController") as! SubDataViewController
         // Get a path to the photo concerned
-        try? localPath = fileManager.contentsOfDirectory(atPath: dir)[index]
-        let initPhotoPath = dir.stringByAppendingPathComponent1(path: localPath)
+        try? localPath = fileManager.contentsOfDirectory(atPath: dirAlbum)[index]
+        let initPhotoPath = dirAlbum.stringByAppendingPathComponent1(path: localPath)
         // Get a image
         let image: UIImage = UIImage(contentsOfFile: initPhotoPath)!
         temporalyInstance.image = image
@@ -163,8 +173,8 @@ class SubSubPhotoViewController: UIViewController, UIPageViewControllerDataSourc
         // Create a instance of photo page view
         let temporalyInstance: SubDataViewController = storyboard?.instantiateViewController(withIdentifier: "SubDataViewController") as! SubDataViewController
         // Get a path to the photo concerned
-        let localPath = try? fileManager.contentsOfDirectory(atPath: dir)[index]
-        let initVideoPath = dir.stringByAppendingPathComponent1(path: localPath!)
+        let localPath = try? fileManager.contentsOfDirectory(atPath: dirAlbum)[index]
+        let initVideoPath = dirAlbum.stringByAppendingPathComponent1(path: localPath!)
         // Get a video
         //let asset: AVAsset = AVURLAsset(url: URL(fileURLWithPath: initVideoPath))
         temporalyInstance.videoPath = initVideoPath
@@ -184,9 +194,9 @@ class SubSubPhotoViewController: UIViewController, UIPageViewControllerDataSourc
          */
         // 上のコードだと、戻った際にナビゲーションタブが吹き飛ぶ
         print("currentIndex: \(currentIndex)")
-        print("globalIndex: \(globalCurrentIndex)")
+        print("globalIndex: \(MyVariables.globalCurrentIndex)")
         
-        globalCurrentIndex = self.currentIndex
+        MyVariables.globalCurrentIndex = self.currentIndex
         self.dismiss(animated: false, completion: nil)
     }
     

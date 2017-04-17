@@ -7,12 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9102B9AA1E5027BB00312D25 /* QBImagePickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9102B9A91E5027BB00312D25 /* QBImagePickerController.framework */; };
+		107C7E857319F0824D6D5AFE /* Pods_SecretPhoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D11D1F772BB28D59BA8CF66 /* Pods_SecretPhoto.framework */; };
 		9102B9AC1E509FE000312D25 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9102B9AB1E509FE000312D25 /* MobileCoreServices.framework */; };
-		9130AA051E6AA60D000029BF /* playButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9130AA041E6AA60D000029BF /* playButton1.png */; };
 		9130AA071E6B2F4C000029BF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130AA061E6B2F4C000029BF /* SettingViewController.swift */; };
 		913878791E54A8F600732F81 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913878781E54A8F600732F81 /* DataViewController.swift */; };
 		9138787B1E5978FF00732F81 /* Benchmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9138787A1E5978FF00732F81 /* Benchmark.swift */; };
+		913AEC361E7FC60C002A79B6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913AEC351E7FC60C002A79B6 /* AdSupport.framework */; };
+		913AEC381E7FC61B002A79B6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913AEC371E7FC61B002A79B6 /* CoreGraphics.framework */; };
+		913AEC3A1E7FC625002A79B6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913AEC391E7FC625002A79B6 /* CoreTelephony.framework */; };
+		913AEC3C1E7FC62D002A79B6 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913AEC3B1E7FC62D002A79B6 /* EventKit.framework */; };
+		913AEC3E1E7FC636002A79B6 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913AEC3D1E7FC636002A79B6 /* EventKitUI.framework */; };
+		913AEC401E7FC63D002A79B6 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913AEC3F1E7FC63D002A79B6 /* MessageUI.framework */; };
+		913AEC421E7FC648002A79B6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913AEC411E7FC648002A79B6 /* StoreKit.framework */; };
+		913AEC441E7FC64F002A79B6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913AEC431E7FC64F002A79B6 /* SystemConfiguration.framework */; };
+		913AEC461E7FD49D002A79B6 /* AddBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913AEC451E7FD49D002A79B6 /* AddBanner.swift */; };
 		91526B9A1E5DCD8400E1A8A2 /* InitialSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91526B991E5DCD8400E1A8A2 /* InitialSetController.swift */; };
 		91526BA01E62A62300E1A8A2 /* CustomClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91526B9F1E62A62300E1A8A2 /* CustomClass.swift */; };
 		91526BA21E64540E00E1A8A2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91526BA11E64540E00E1A8A2 /* AudioToolbox.framework */; };
@@ -30,19 +38,29 @@
 		917B54161E4F0F760098D2FF /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917B54151E4F0F760098D2FF /* AlbumViewController.swift */; };
 		917B54181E4F176A0098D2FF /* AlbumViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917B54171E4F176A0098D2FF /* AlbumViewCell.swift */; };
 		917B541A1E4F4BAB0098D2FF /* PhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917B54191E4F4BAA0098D2FF /* PhotoViewCell.swift */; };
+		91AEA9BA1E6DB6600027A0D3 /* FakePassSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AEA9B91E6DB6600027A0D3 /* FakePassSetController.swift */; };
+		91B3C46D1E6DCD1100728A87 /* QBImagePickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91B3C46C1E6DCD1100728A87 /* QBImagePickerController.framework */; };
 		91E80FE61E5B1069007C3616 /* SubSubPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E80FE51E5B1069007C3616 /* SubSubPhotoViewController.swift */; };
 		91E80FE81E5B1114007C3616 /* SubDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E80FE71E5B1114007C3616 /* SubDataViewController.swift */; };
-		E21E215BA96F7C181B44C9FD /* Pods_SecretPhoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87105EB0CC5617CF823202A /* Pods_SecretPhoto.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D11D1F772BB28D59BA8CF66 /* Pods_SecretPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SecretPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77E20C0733AE6E836BCAD61A /* Pods-SecretPhoto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretPhoto.release.xcconfig"; path = "Pods/Target Support Files/Pods-SecretPhoto/Pods-SecretPhoto.release.xcconfig"; sourceTree = "<group>"; };
-		9102B9A91E5027BB00312D25 /* QBImagePickerController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QBImagePickerController.framework; path = "DerivedData/SecretPhoto/Build/Products/Debug-iphonesimulator/QBImagePickerController/QBImagePickerController.framework"; sourceTree = "<group>"; };
 		9102B9AB1E509FE000312D25 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		9130AA041E6AA60D000029BF /* playButton1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playButton1.png; path = ../../../Downloads/playButton1.png; sourceTree = "<group>"; };
 		9130AA061E6B2F4C000029BF /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		913878781E54A8F600732F81 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		9138787A1E5978FF00732F81 /* Benchmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Benchmark.swift; sourceTree = "<group>"; };
+		913AEC331E7FC027002A79B6 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		913AEC351E7FC60C002A79B6 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		913AEC371E7FC61B002A79B6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		913AEC391E7FC625002A79B6 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		913AEC3B1E7FC62D002A79B6 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		913AEC3D1E7FC636002A79B6 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		913AEC3F1E7FC63D002A79B6 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		913AEC411E7FC648002A79B6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		913AEC431E7FC64F002A79B6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		913AEC451E7FD49D002A79B6 /* AddBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBanner.swift; sourceTree = "<group>"; };
 		91526B991E5DCD8400E1A8A2 /* InitialSetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialSetController.swift; sourceTree = "<group>"; };
 		91526B9F1E62A62300E1A8A2 /* CustomClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomClass.swift; sourceTree = "<group>"; };
 		91526BA11E64540E00E1A8A2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -62,10 +80,11 @@
 		917B54151E4F0F760098D2FF /* AlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		917B54171E4F176A0098D2FF /* AlbumViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewCell.swift; sourceTree = "<group>"; };
 		917B54191E4F4BAA0098D2FF /* PhotoViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewCell.swift; sourceTree = "<group>"; };
+		91AEA9B91E6DB6600027A0D3 /* FakePassSetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePassSetController.swift; sourceTree = "<group>"; };
+		91B3C46C1E6DCD1100728A87 /* QBImagePickerController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QBImagePickerController.framework; path = "Pods/../build/Debug-iphoneos/QBImagePickerController/QBImagePickerController.framework"; sourceTree = "<group>"; };
 		91E80FE51E5B1069007C3616 /* SubSubPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubSubPhotoViewController.swift; sourceTree = "<group>"; };
 		91E80FE71E5B1114007C3616 /* SubDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubDataViewController.swift; sourceTree = "<group>"; };
 		9DDA81D0236E3278C776B75B /* Pods-SecretPhoto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretPhoto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SecretPhoto/Pods-SecretPhoto.debug.xcconfig"; sourceTree = "<group>"; };
-		D87105EB0CC5617CF823202A /* Pods_SecretPhoto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SecretPhoto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,14 +92,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				913AEC441E7FC64F002A79B6 /* SystemConfiguration.framework in Frameworks */,
+				913AEC421E7FC648002A79B6 /* StoreKit.framework in Frameworks */,
+				913AEC401E7FC63D002A79B6 /* MessageUI.framework in Frameworks */,
+				913AEC3E1E7FC636002A79B6 /* EventKitUI.framework in Frameworks */,
+				913AEC3C1E7FC62D002A79B6 /* EventKit.framework in Frameworks */,
+				913AEC3A1E7FC625002A79B6 /* CoreTelephony.framework in Frameworks */,
+				913AEC381E7FC61B002A79B6 /* CoreGraphics.framework in Frameworks */,
+				913AEC361E7FC60C002A79B6 /* AdSupport.framework in Frameworks */,
+				91B3C46D1E6DCD1100728A87 /* QBImagePickerController.framework in Frameworks */,
 				91526BAC1E686EB700E1A8A2 /* AVKit.framework in Frameworks */,
 				91526BAA1E671F1C00E1A8A2 /* CoreMedia.framework in Frameworks */,
 				91526BA41E65BAB200E1A8A2 /* AVFoundation.framework in Frameworks */,
 				91526BA21E64540E00E1A8A2 /* AudioToolbox.framework in Frameworks */,
 				9102B9AC1E509FE000312D25 /* MobileCoreServices.framework in Frameworks */,
-				9102B9AA1E5027BB00312D25 /* QBImagePickerController.framework in Frameworks */,
 				917B54141E4F0C3C0098D2FF /* Photos.framework in Frameworks */,
-				E21E215BA96F7C181B44C9FD /* Pods_SecretPhoto.framework in Frameworks */,
+				107C7E857319F0824D6D5AFE /* Pods_SecretPhoto.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +137,7 @@
 			children = (
 				917B53E21E4CC2050098D2FF /* AppDelegate.swift */,
 				91526B991E5DCD8400E1A8A2 /* InitialSetController.swift */,
+				91AEA9B91E6DB6600027A0D3 /* FakePassSetController.swift */,
 				917B53E41E4CC2050098D2FF /* PhotoViewController.swift */,
 				917B54191E4F4BAA0098D2FF /* PhotoViewCell.swift */,
 				917B54151E4F0F760098D2FF /* AlbumViewController.swift */,
@@ -119,6 +147,7 @@
 				9130AA061E6B2F4C000029BF /* SettingViewController.swift */,
 				91526B9F1E62A62300E1A8A2 /* CustomClass.swift */,
 				9165F4141E5C965D00257AD5 /* CalculatorViewController.swift */,
+				913AEC451E7FD49D002A79B6 /* AddBanner.swift */,
 				91E80FE51E5B1069007C3616 /* SubSubPhotoViewController.swift */,
 				91E80FE71E5B1114007C3616 /* SubDataViewController.swift */,
 				913878781E54A8F600732F81 /* DataViewController.swift */,
@@ -126,7 +155,6 @@
 				9138787A1E5978FF00732F81 /* Benchmark.swift */,
 				917B53E91E4CC2050098D2FF /* Assets.xcassets */,
 				917B53EE1E4CC2050098D2FF /* Info.plist */,
-				9130AA041E6AA60D000029BF /* playButton1.png */,
 			);
 			path = SecretPhoto;
 			sourceTree = "<group>";
@@ -134,14 +162,23 @@
 		917B54101E4EED400098D2FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				913AEC431E7FC64F002A79B6 /* SystemConfiguration.framework */,
+				913AEC411E7FC648002A79B6 /* StoreKit.framework */,
+				913AEC3F1E7FC63D002A79B6 /* MessageUI.framework */,
+				913AEC3D1E7FC636002A79B6 /* EventKitUI.framework */,
+				913AEC3B1E7FC62D002A79B6 /* EventKit.framework */,
+				913AEC391E7FC625002A79B6 /* CoreTelephony.framework */,
+				913AEC371E7FC61B002A79B6 /* CoreGraphics.framework */,
+				913AEC351E7FC60C002A79B6 /* AdSupport.framework */,
+				913AEC331E7FC027002A79B6 /* iAd.framework */,
+				91B3C46C1E6DCD1100728A87 /* QBImagePickerController.framework */,
 				91526BAB1E686EB700E1A8A2 /* AVKit.framework */,
 				91526BA91E671F1C00E1A8A2 /* CoreMedia.framework */,
 				91526BA31E65BAB200E1A8A2 /* AVFoundation.framework */,
 				91526BA11E64540E00E1A8A2 /* AudioToolbox.framework */,
 				9102B9AB1E509FE000312D25 /* MobileCoreServices.framework */,
-				9102B9A91E5027BB00312D25 /* QBImagePickerController.framework */,
 				917B54131E4F0C3C0098D2FF /* Photos.framework */,
-				D87105EB0CC5617CF823202A /* Pods_SecretPhoto.framework */,
+				5D11D1F772BB28D59BA8CF66 /* Pods_SecretPhoto.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -218,7 +255,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9130AA051E6AA60D000029BF /* playButton1.png in Resources */,
 				917B53EA1E4CC2050098D2FF /* Assets.xcassets in Resources */,
 				917B53E81E4CC2050098D2FF /* Main.storyboard in Resources */,
 			);
@@ -283,6 +319,8 @@
 				913878791E54A8F600732F81 /* DataViewController.swift in Sources */,
 				91E80FE61E5B1069007C3616 /* SubSubPhotoViewController.swift in Sources */,
 				91526B9A1E5DCD8400E1A8A2 /* InitialSetController.swift in Sources */,
+				913AEC461E7FD49D002A79B6 /* AddBanner.swift in Sources */,
+				91AEA9BA1E6DB6600027A0D3 /* FakePassSetController.swift in Sources */,
 				917B540F1E4DBAE40098D2FF /* SubPhotoViewController.swift in Sources */,
 				9130AA071E6B2F4C000029BF /* SettingViewController.swift in Sources */,
 				917B53E51E4CC2050098D2FF /* PhotoViewController.swift in Sources */,
